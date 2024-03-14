@@ -1,4 +1,4 @@
-# App-todo
+# Primeiro Projeto prático de Angular
 
 Projeto realizado para praticar alguns conceitos novos que aprendi durante o estudo do framework Angular.
 
