@@ -9,10 +9,11 @@ import { TaskList } from '../../model/task-list';
 
 export class TodoListComponent implements DoCheck {
 
-  public taskList: Array<TaskList> = [];
+  public taskList: Array<TaskList> = JSON.parse(localStorage.getItem("list") || '[]');
 
   ngDoCheck(): void {
-    this.taskList.sort((first, last) => Number(first.checked) - Number(last.checked));
+    this.setLocalStorage()
+
   }
 
   public setEmitTaskList(event: string) {
@@ -38,12 +39,19 @@ export class TodoListComponent implements DoCheck {
   }
 
   public validationInput(event: string, index: number) {
-    if(event.length === 0){
+    if (event.length === 0) {
       const confirm = window.confirm("Task está vazia, deseja Deletar?")
 
-      if(confirm){
+      if (confirm) {
         this.deleteItemTaskList(index)
       }
+    }
+  }
+
+  public setLocalStorage() {
+    if (this.taskList) {
+      this.taskList.sort((first, last) => Number(first.checked) - Number(last.checked));
+      localStorage.setItem("list", JSON.stringify(this.taskList));
     }
   }
 }
